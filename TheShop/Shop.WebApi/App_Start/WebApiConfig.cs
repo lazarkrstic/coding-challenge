@@ -1,5 +1,4 @@
-﻿using System.Web.Http;
-
+﻿
 namespace Shop.WebApi
 {
     public static class WebApiConfig

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Shop.WebApi.Models;
 using Shop.WebApi.Services;
 
 namespace Shop.WebApi.Controllers
 {
-    public class ShopController : ApiController
+    public class ShopController : ControllerBase
     {
         private Db Db;
         private Logger logger;

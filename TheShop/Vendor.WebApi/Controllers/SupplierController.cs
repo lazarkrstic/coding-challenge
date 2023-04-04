@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Vendor.WebApi.Models;
 using Vendor.WebApi.Services;
 
 namespace Vendor.WebApi.Controllers
 {
-    public class SupplierController : ApiController
+    public class SupplierController : ControllerBase
     {
         private DatabaseDriver DatabaseDriver;
         private Logger logger;
