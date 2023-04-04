@@ -27,6 +27,12 @@ namespace Shop.WebApi.Controllers
             Dealer2 = new Dealer2();
         }
 
+        /// <summary>
+        /// Get article by Id.
+        /// </summary>
+        /// <param name="id">Article id</param>
+        /// <param name="maxExpectedPrice">Max Expected Price </param>
+        /// <returns></returns>
         [HttpGet()]
         public Article GetArtice(int id, int maxExpectedPrice = 200)
         {

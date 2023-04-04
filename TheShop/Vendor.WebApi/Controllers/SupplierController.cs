@@ -20,7 +20,11 @@ namespace Vendor.WebApi.Controllers
             logger = new Logger();
             _supplierService = new SupplierService();
         }
-
+        /// <summary>
+        /// Check the availability
+        /// </summary>
+        /// <param name="id">Article id</param>
+        /// <returns></returns>
         [HttpHead]
         public bool ArticleInInventory(int id)
         {
