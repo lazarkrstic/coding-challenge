@@ -5,6 +5,8 @@ using Shop.WebApi.Services;
 
 namespace Shop.WebApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ShopController : ControllerBase
     {
         private Db Db;

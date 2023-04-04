@@ -9,9 +9,9 @@ namespace Shop.WebApi.Services
     {
         private readonly string _supplierUrl;
 
-        public Dealer2()
+        public Dealer2(string supplierUrl = "http://localhost:59706")
         {
-            _supplierUrl = ConfigurationManager.AppSettings["Dealer2Url"];
+            _supplierUrl = supplierUrl;
         }
 
         public bool ArticleInInventory(int id)
