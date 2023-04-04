@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Vendor.WebApi.Models;
 using Vendor.WebApi.Services;
 
 namespace Vendor.WebApi.Controllers
 {
-    public class SupplierController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SupplierController : ControllerBase
     {
         private DatabaseDriver DatabaseDriver;
         private Logger logger;
@@ -19,11 +21,13 @@ namespace Vendor.WebApi.Controllers
             _supplierService = new SupplierService();
         }
 
+        [HttpHead]
         public bool ArticleInInventory(int id)
         {
             return _supplierService.ArticleInInventory(id);
         }
 
+        [HttpGet]
         public Article GetArtice(int id)
         {
             var articleExists = _supplierService.ArticleInInventory(id);
@@ -37,6 +41,7 @@ namespace Vendor.WebApi.Controllers
             }
         }
 
+        [HttpPost]
         public void BuyArticle(Article article, int buyerId)
         {
             var id = article.ID;
