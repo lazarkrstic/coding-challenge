@@ -4,3 +4,9 @@
 /TheShop/Vendor.WebApi/bin
 /TheShop/Vendor.WebApi/obj/Debug
 /TheShop/.vs
+/TheShop.backup
+/TheShop/Vendor.WebApi/obj
+/TheShop/Shop.WebApi/obj
+/TheShop/UpgradeReport.sarif
+/TheShop/upgrade-assistant.clef
+/TheShop/AnalysisReport.sarif
