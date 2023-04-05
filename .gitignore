@@ -12,3 +12,5 @@
 /TheShop/AnalysisReport.sarif
 /TheShop/TheShop.Domain/bin
 /TheShop/TheShop.Domain/obj
+/TheShop/TheShop.Application/bin
+/TheShop/TheShop.Application/obj
