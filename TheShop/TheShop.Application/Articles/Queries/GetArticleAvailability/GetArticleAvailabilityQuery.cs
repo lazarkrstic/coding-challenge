@@ -15,16 +15,16 @@ namespace TheShop.Application.Articles.Queries.GetArticleAvailability
 
     public class GetArticleAvailabilityQueryHandler : IRequestHandler<GetArticleAvailabilityQuery, bool>
     {
-        private readonly IBaseDealerSuplier _baseDealerSuplier;
+        private readonly ISupplier _supplier;
 
-        public GetArticleAvailabilityQueryHandler(IBaseDealerSuplier baseDealerSuplier)
+        public GetArticleAvailabilityQueryHandler(ISupplier supplier)
         {
-            _baseDealerSuplier = baseDealerSuplier;
+            _supplier = supplier;
         }
 
         public Task<bool> Handle(GetArticleAvailabilityQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_baseDealerSuplier.ArticleInInventory(request.Id));
+            return Task.FromResult(_supplier.ArticleInInventory(request.Id));
         }
     }
 }
