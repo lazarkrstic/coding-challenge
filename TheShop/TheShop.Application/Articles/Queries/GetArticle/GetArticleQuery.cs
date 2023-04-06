@@ -18,8 +18,8 @@ namespace TheShop.Application.Articles.Queries.GetArticle
 
     public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleDto>
     {
-        private ISupplier _supplier;
-        private IMapper _mapper;
+        private readonly ISupplier _supplier;
+        private readonly IMapper _mapper;
 
 
         public GetArticleQueryHandler(ISupplier supplier, IMapper mapper)
