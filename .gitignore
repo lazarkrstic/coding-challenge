@@ -16,3 +16,5 @@
 /TheShop/TheShop.Application/obj
 /TheShop/TheShop.Infrastructure/bin
 /TheShop/TheShop.Infrastructure/obj
+/TheShop/TheShop.Domain.Tests/bin
+/TheShop/TheShop.Domain.Tests/obj
