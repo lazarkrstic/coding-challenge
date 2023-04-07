@@ -16,7 +16,7 @@ namespace Vendor.WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        [HttpHead]
+        [HttpHead(Name = nameof(ArticleInInventory))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -39,7 +39,7 @@ namespace Vendor.WebApi.Controllers
         /// </summary>
         /// <param name="getArticleQuery"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet(Name = nameof(GetArtice))]
         public async Task<ActionResult<ArticleDto>> GetArtice([FromQuery] GetArticleQuery getArticleQuery)
         {
              return await Mediator.Send(getArticleQuery);
@@ -52,7 +52,7 @@ namespace Vendor.WebApi.Controllers
         /// <param name="id">Article id</param>
         /// <param name="buyArticleCommand"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost(Name = nameof(BuyArticle))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
