@@ -1,29 +1,30 @@
 ﻿using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Web.Http;
+using TheShop.Infrastructure;
+using TheShop.Application;
+using Shop.WebApi;
+using TheShop.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers()
     .AddXmlSerializerFormatters();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+List<Article> articlesDbSeed = new List<Article>()
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Shop API",
-        Description = "Shop Web API"
-    });
+    new Article() {Id = 1, Name = "Article 1", Price = 100, Sold = true, SoldDate = DateTime.Now, BuyerId = 1},
+    new Article() {Id = 2, Name = "Article 2", Price = 200, Sold = true, SoldDate = DateTime.Now, BuyerId = 1},
+    new Article() {Id = 3, Name = "Article 3", Price = 300, Sold = true, SoldDate = DateTime.Now, BuyerId = 2},
+    new Article() {Id = 4, Name = "Article 4", Price = 400, Sold = true, SoldDate = DateTime.Now, BuyerId = 2},
+    new Article() {Id = 5, Name = "Article 5", Price = 500, Sold = true, SoldDate = DateTime.Now, BuyerId = 3},
+    new Article() {Id = 6, Name = "Article 6", Price = 600, Sold = true, SoldDate = DateTime.Now, BuyerId = 3}
+};
 
-    // using System.Reflection;
-    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-});
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration, true, articlesDbSeed);
+builder.Services.AddWebApiServices();
 
 var app = builder.Build();
 

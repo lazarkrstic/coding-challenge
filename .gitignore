@@ -10,3 +10,9 @@
 /TheShop/UpgradeReport.sarif
 /TheShop/upgrade-assistant.clef
 /TheShop/AnalysisReport.sarif
+/TheShop/TheShop.Domain/bin
+/TheShop/TheShop.Domain/obj
+/TheShop/TheShop.Application/bin
+/TheShop/TheShop.Application/obj
+/TheShop/TheShop.Infrastructure/bin
+/TheShop/TheShop.Infrastructure/obj
