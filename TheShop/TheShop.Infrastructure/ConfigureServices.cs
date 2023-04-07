@@ -43,7 +43,7 @@ namespace TheShop.Infrastructure
 
                 services.AddTransient<IArticleInventory, WarehouseService>();
                 services.AddTransient<ISupplier, SupplierService>();
-                services.AddTransient<ICashedSupplier, CachedSupplier>();
+                services.AddSingleton<ICashedSupplier, CachedSupplier>();
 
                 LogLevel logLevel = LogLevel.Debug;
                 if (Enum.TryParse(configuration["Logging:LogLevel:Default"], out logLevel))

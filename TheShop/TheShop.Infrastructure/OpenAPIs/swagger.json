@@ -94,7 +94,7 @@
           "Article"
         ],
         "summary": "Get article by id",
-        "operationId": "GetArtice",
+        "operationId": "GetArticle",
         "parameters": [
           {
             "name": "Id",

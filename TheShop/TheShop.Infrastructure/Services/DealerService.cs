@@ -42,7 +42,7 @@ namespace TheShop.Infrastructure.Services
 
             try
             {
-                var dto = vendorClient.GetArticeAsync((int)id).GetAwaiter().GetResult();
+                var dto = vendorClient.GetArticleAsync((int)id).GetAwaiter().GetResult();
                 return new Article()
                 {
                     Id = (uint)dto.Id,

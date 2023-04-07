@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using TheShop.Application.Articles.Commands.BuyArticle;
-using TheShop.Application.Articles.Queries.GetArticle;
-using TheShop.Application.Articles.Queries.GetArticleAvailability;
 using TheShop.Application.Articles.Queries.SearchForArticle;
 using TheShop.Application.Common.Exceptions;
 using TheShop.Application.Common.Models;
 
-namespace Vendor.WebApi.Controllers
+namespace Shop.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -14,39 +13,20 @@ namespace Vendor.WebApi.Controllers
     {
 
         /// <summary>
-        /// Check the availability
+        /// Get article by Id.
         /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [HttpHead(Name = nameof(ArticleInInventory))]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> ArticleInInventory([FromQuery] GetArticleAvailabilityQuery query)
-        {
-            bool availabe = await Mediator.Send(query);
-            if(availabe)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-
-
-        /// <summary>
-        /// Get article by id
-        /// </summary>
-        /// <param name="getArticleQuery"></param>
+        /// <param name="searchForArticleQuery"></param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetArticle))]
-        public async Task<ActionResult<ArticleDto>> GetArticle([FromQuery] GetArticleQuery getArticleQuery)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<ArticleDto>> GetArticle([FromQuery] SearchForArticleQuery searchForArticleQuery)
         {
+
             try
             {
-                ArticleDto articleDto = await Mediator.Send(getArticleQuery);
+                ArticleDto articleDto = await Mediator.Send(searchForArticleQuery);
                 return articleDto;
             }
             catch (ArticleNotExistException ex)
@@ -54,11 +34,12 @@ namespace Vendor.WebApi.Controllers
 
                 return NotFound(ex.Message);
             }
+ 
         }
 
 
         /// <summary>
-        /// By article
+        /// Buy Article
         /// </summary>
         /// <param name="id">Article id</param>
         /// <param name="buyArticleCommand"></param>
@@ -67,8 +48,9 @@ namespace Vendor.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> BuyArticle(uint id, [FromBody] BuyArticleCommand buyArticleCommand)
+        public async Task<IActionResult> BuyArticle(uint id, [FromBody] BuyArticleCommand buyArticleCommand )
         {
+
             if (id != buyArticleCommand.Id)
             {
                 return BadRequest();

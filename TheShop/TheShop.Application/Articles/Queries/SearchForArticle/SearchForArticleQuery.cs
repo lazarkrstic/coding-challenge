@@ -2,6 +2,7 @@
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace TheShop.Application.Articles.Queries.SearchForArticle
 {
     public class SearchForArticleQuery : GetArticleQuery
     {
+        [DefaultValue(200)]
         public uint MaxExpectedPrice { get; init; }
     }
 
@@ -51,7 +53,7 @@ namespace TheShop.Application.Articles.Queries.SearchForArticle
                 bool articleExists = item.ArticleInInventory(request.Id);
                 if (articleExists) {
                     var article = item.GetArticle(request.Id);
-                    if  (article != null)
+                    if  (article != null && article.Price <= request.MaxExpectedPrice)
                     {
                         if (item != _cashedSupplier)
                         {
@@ -64,7 +66,7 @@ namespace TheShop.Application.Articles.Queries.SearchForArticle
                 }
             }
 
-            throw new ArticleNotExistException($"Not exist Article with id: {request.Id}");
+            throw new ArticleNotExistException($"Not exist Article with id: {request.Id} and price lower or equal {request.MaxExpectedPrice}");
         }
     }
 }
