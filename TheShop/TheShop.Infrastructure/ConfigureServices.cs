@@ -9,13 +9,13 @@ using TheShop.Application.Common.Interfaces;
 using TheShop.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using TheShop.Infrastructure.Services;
-
+using TheShop.Domain.Entities;
 
 namespace TheShop.Infrastructure
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration, bool addDealers = false)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration, bool addDealers = false, List<Article> articlesSeed = null)
         {
             if (configuration != null)
             {
@@ -37,7 +37,14 @@ namespace TheShop.Infrastructure
                 if (useInMemoryDatabese)
                 {
                     ShopApplicationContext shopApplicationContext = services.BuildServiceProvider().GetRequiredService<ShopApplicationContext>();
-                    shopApplicationContext.SeedAsync(default).GetAwaiter().GetResult();
+                    if (articlesSeed != null)
+                    {
+                        shopApplicationContext.SeedAsync(articlesSeed, default).GetAwaiter().GetResult();
+                    }
+                    else 
+                    { 
+                        shopApplicationContext.SeedAsync(default).GetAwaiter().GetResult();
+                    }
 
                 }
 
