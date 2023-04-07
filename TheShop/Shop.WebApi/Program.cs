@@ -45,3 +45,6 @@ app.MapControllerRoute(name: "DefaultApi",
               defaults: new { id = RouteParameter.Optional });
 app.MapControllers();
 app.Run();
+
+
+public partial class Program { }
