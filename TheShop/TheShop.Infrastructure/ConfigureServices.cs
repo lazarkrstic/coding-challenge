@@ -15,12 +15,12 @@ namespace TheShop.Infrastructure
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration, bool addDealers = false)
         {
             if (configuration != null)
             {
-                bool useInMemoryDatabese = true;
-                bool.TryParse(configuration["UseInMemoryDatabase"], out useInMemoryDatabese);
+
+                bool.TryParse(configuration["UseInMemoryDatabase"], out bool useInMemoryDatabese);
 
                 if (useInMemoryDatabese)
                 {
@@ -43,13 +43,42 @@ namespace TheShop.Infrastructure
 
                 services.AddTransient<IArticleInventory, WarehouseService>();
                 services.AddTransient<ISupplier, SupplierService>();
-                services.AddTransient<ILogger, ConsoleLoggerService>();
+                services.AddTransient<ICashedSupplier, CachedSupplier>();
 
+                LogLevel logLevel = LogLevel.Debug;
+                if (Enum.TryParse(configuration["Logging:LogLevel:Default"], out logLevel))
+                {
+                    services.AddTransient<ILogger>(provider => new ConsoleLoggerService(logLevel));
+                }
+                else
+                {
+                    services.AddTransient<ILogger, ConsoleLoggerService>();
+                }
 
-                services.AddTransient<IPrimaryDealerSupplier>(provider => new PrimaryDealerService(configuration["Dealers:Primary"]));
-                services.AddTransient<ISecondaryDealerSupplier>(provider => new SecondaryDealerSupplier(configuration["Dealers:Secondary"]));
+                string? primaryDealerUrl = configuration["Dealers:PrimaryUrl"];
+                string? secondaryDealerUrl = configuration["Dealers:SecondaryUrl"];
+
+                if (addDealers)
+                {
+                    if (string.IsNullOrEmpty(primaryDealerUrl))
+                    {
+                        throw new ArgumentException("Primary Dealer URL not set");
+                    }
+                    if (string.IsNullOrEmpty(secondaryDealerUrl))
+                    {
+                        throw new ArgumentException("Secundary Dealer URL not set");
+                    }
+                }
+                else
+                {
+                    primaryDealerUrl =  string.Empty;
+                    secondaryDealerUrl = string.Empty;
+                }
+                services.AddTransient<IPrimaryDealerSupplier>(provider => new PrimaryDealerService(primaryDealerUrl));
+                services.AddTransient<ISecondaryDealerSupplier>(provider => new SecondaryDealerSupplier(secondaryDealerUrl));
 
             }
+
             return services;
         }
     }

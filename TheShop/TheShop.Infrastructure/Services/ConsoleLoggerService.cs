@@ -9,10 +9,13 @@ namespace TheShop.Infrastructure.Services
 {
     public enum LogLevel
     {
+        Trace = 0,
         Debug = 1,
-        Info = 2,
-        Error = 3,
-        None = 4
+        Information = 2,
+        Warning = 3,
+        Error = 4,
+        Critical = 5,
+        None = 6
     }
     public class ConsoleLoggerService : ILogger
     {
@@ -34,7 +37,7 @@ namespace TheShop.Infrastructure.Services
 
         public void LogInfo(string message)
         {
-            LogToConsole(LogLevel.Info, message);
+            LogToConsole(LogLevel.Information, message);
         }
 
         private void LogToConsole(LogLevel level, string message)
